@@ -13,8 +13,7 @@ package_update: true
 package_upgrade: true
 package_reboot_if_required: true
 users:
-  - default
-    name: ${var.vm_username}
+  - name: ${var.vm_username}
     groups: sudo
     shell: /bin/bash
     sudo: ALL=(ALL) NOPASSWD:ALL
@@ -22,7 +21,7 @@ users:
       ${yamlencode(var.sshkeys)}
 EOF
 
-    file_name = "cloud-config.yaml"
+    file_name = "cloud-config-${var.vm_hostname}.yaml"
   }
 }
 
