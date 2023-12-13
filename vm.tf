@@ -12,6 +12,8 @@ packages:
 package_update: true
 package_upgrade: true
 package_reboot_if_required: true
+runcmd:
+  - systemctl start qemu-guest-agent
 users:
   - name: ${var.vm_username}
     groups: sudo
@@ -32,8 +34,13 @@ resource "proxmox_virtual_environment_vm" "ubuntu_vm" {
 
   node_name = var.pve_node
 
+  agent {
+    enabled = true
+  }
+
   clone {
     vm_id = "${var.vm_clone_id}"
+    datastore_id = "NVME2"
   }
   
   initialization {
