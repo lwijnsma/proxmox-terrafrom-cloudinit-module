@@ -45,8 +45,9 @@ resource "proxmox_virtual_environment_vm" "ubuntu_vm" {
   
   initialization {
     ip_config {
-      ipv4 {
-        address = "dhcp"
+        ipv4 {
+          address = var.ipv4.address
+          gateway = var.ipv4.gateway
       }
     }
     user_data_file_id = proxmox_virtual_environment_file.user_data.id

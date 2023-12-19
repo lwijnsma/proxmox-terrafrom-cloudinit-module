@@ -18,7 +18,6 @@ variable "pve_password" {
 }
 variable "vm_clone_id" {
   type = number
-
   validation {
     condition     = var.vm_clone_id >= 1 && var.vm_clone_id <= 9999 && floor(var.vm_clone_id) == var.vm_clone_id
     error_message = "Accepted values: 1-9999."
@@ -36,4 +35,13 @@ variable "vm_tags" {
 }
 variable "sshkeys" {
   type = list(string)
+}
+variable "ipv4" {
+  type = object({
+    address = string
+    gateway = optional(string)
+  })
+  default = {
+    address = "dhcp"
+  }
 }
