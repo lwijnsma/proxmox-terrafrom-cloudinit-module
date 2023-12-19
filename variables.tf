@@ -33,6 +33,18 @@ variable "vm_tags" {
   type = list(string)
   default = ["terraform"]  
 }
+variable "vm_bridge" {
+  type = string
+  default = "vmbr2"
+}
+variable "vm_vlan" {
+  type = string 
+  default = 1610
+}
+variable "vm_datastore" {
+  type = string
+  default = "NVME2"
+}
 variable "sshkeys" {
   type = list(string)
 }

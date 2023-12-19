@@ -39,8 +39,8 @@ resource "proxmox_virtual_environment_vm" "ubuntu_vm" {
   }
 
   clone {
-    vm_id = "${var.vm_clone_id}"
-    datastore_id = "NVME2"
+    vm_id = var.vm_clone_id
+    datastore_id = var.vm_datastore
   }
   
   initialization {
@@ -54,8 +54,8 @@ resource "proxmox_virtual_environment_vm" "ubuntu_vm" {
   }
 
   network_device {
-    bridge = "vmbr2"
-    vlan_id = "1610"
+    bridge = var.vm_bridge
+    vlan_id = var.vm_vlan
   }
 
   operating_system {
