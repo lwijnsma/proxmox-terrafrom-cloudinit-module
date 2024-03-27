@@ -5,7 +5,7 @@
 
 ```HCL
 module "proxmox" {
-  source = "github.com/lwijnsma/proxmox-terrafrom-cloudinit-module"
+  source = "github.com/lwijnsma/proxmox-netbox-terraform-module"
 
   vm_cpus = 2
   vm_memory = 2048
