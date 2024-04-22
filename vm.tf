@@ -112,7 +112,6 @@ resource "proxmox_virtual_environment_vm" "myvm" {
 
   network_device {
     bridge = var.vm_bridge
-    vlan_id = var.vm_vlan
   }
 
   operating_system {

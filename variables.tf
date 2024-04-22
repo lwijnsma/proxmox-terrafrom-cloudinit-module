@@ -18,11 +18,7 @@ variable "vm_tags" {
 }
 variable "vm_bridge" {
   type = string
-  default = "vmbr2"
-}
-variable "vm_vlan" {
-  type = string 
-  default = 1610
+  default = "vmbr0"
 }
 variable "vm_datastore" {
   type = string
