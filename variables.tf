@@ -57,6 +57,7 @@ variable "netbox_device_role" {
 }
 variable "sshkeys" {
   type = list(string)
+  default = null
 }
 variable "cloud_image_url" {
   type = string

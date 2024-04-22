@@ -41,30 +41,13 @@ resource "proxmox_virtual_environment_file" "user_data" {
   node_name    = var.pve_node
 
   source_raw {
-    data = <<EOF
-#cloud-config
-hostname: ${var.vm_hostname}
-%{ if var.qemu_agent }
-packages:
-  - qemu-guest-agent
-%{ endif }
-package_update: true
-package_upgrade: true
-package_reboot_if_required: true
-users:
-  - name: ${var.vm_username}
-    groups: sudo
-    shell: /bin/bash
-    sudo: ALL=(ALL) NOPASSWD:ALL
-    ssh-authorized-keys:
-      ${yamlencode(var.sshkeys)}
-%{ if var.qemu_agent }
-runcmd:
-  - systemctl enable qemu-guest-agent
-  - systemctl start --no-block qemu-guest-agent
-%{ endif }
-EOF 
-      file_name = "cloud-config-user-data-${var.vm_hostname}.yaml"
+    data = templatefile("${path.module}/cloud-init/user-data.tftpl", { 
+      qemu_agent = var.qemu_agent,
+      vm_hostname = var.vm_hostname,
+      vm_username = var.vm_username,
+      sshkeys = var.sshkeys
+    })
+    file_name = "cloud-config-user-data-${var.vm_hostname}.yaml"
   }
 
 }
@@ -87,7 +70,6 @@ resource "proxmox_virtual_environment_download_file" "cloud_image" {
   content_type = "iso"
   datastore_id = "local"
   node_name    = var.pve_node
-  file_name    = "debian-12-generic-amd64.qcow2.img"
   url          = var.cloud_image_url
 }
 
