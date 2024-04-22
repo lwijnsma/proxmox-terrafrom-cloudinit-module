@@ -40,13 +40,8 @@ resource "proxmox_virtual_environment_file" "user_data" {
   datastore_id = "local"
   node_name    = var.pve_node
 
-  source_raw {
-    data = templatefile("${path.module}/cloud-init/user-data.tftpl", { 
-      qemu_agent = var.qemu_agent,
-      vm_hostname = var.vm_hostname,
-      vm_username = var.vm_username,
-      sshkeys = var.sshkeys
-    })
+  source_file {
+    path = var.user_data_file
     file_name = "cloud-config-user-data-${var.vm_hostname}.yaml"
   }
 

@@ -28,6 +28,11 @@ variable "vm_disk_size" {
   type = number
   default = 20
 }
+variable "user_data_file" {
+  type = string
+  default = "cloud-init/user-data.yaml"
+  
+}
 variable "vm_memory" {
   type = number
   default = 2048
